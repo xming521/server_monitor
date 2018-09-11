@@ -1,31 +1,29 @@
 # Windows
-import os
 import psutil as p
-import time
 
 
-
-process_list={}
-with open('../process.conf','r',encoding='UTF-8') as f:
-    for line in f:
-        xxlist=line.split('|')
-        xxlist[1]=eval(xxlist[1])
-        process_list[xxlist[0]]=xxlist[1]
-
-
-print(process_list)
-
-
-result_process={}
-for i in process_list:
-    try:
-        process=p.Process(process_list[i])
-        result_process[i]=True
-    except p.NoSuchProcess:
-        result_process[i]=False
-
-
-    print(process.name(),process.exe(),process.status())
-
-
-
+def main():
+    with open('../process.conf', 'r', encoding='UTF-8') as f:
+        read_list = eval(f.read())
+    all_result = []
+    id = 1
+    for i in read_list:
+        try:
+            process = p.Process(read_list[i])
+            result_dict = {
+                'id': id,
+                'name': i,
+                'run': True,
+                'memory': process.memory_info().rss / 1024 / 1024,
+                'net': process.connections(kind="inet")
+            }
+        except p.NoSuchProcess:
+            result_dict = {
+                'id': id,
+                'name': i,
+                'run': False
+            }
+        finally:
+            id = id + 1
+            all_result.append(result_dict)
+    return all_result

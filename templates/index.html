@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>监视世界中</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+
+</head>
+<body>
+<div class="index-show">
+    <ul>
+        {% for i in dict %}
+            {% if i['run'] == True %}
+                <li onclick="">{{ i['name'] }}
+                    <div run='t' class="c"></div>
+                </li>
+            {% else %}
+                <li onclick="">{{ i['name'] }}
+                    <div run='f' class="c"></div>
+                </li>
+            {% endif %}
+
+        {% endfor %}
+    </ul>
+</div>
+
+
+<a href="/logout">退出登录</a><br>
+
+</body>
+</html>

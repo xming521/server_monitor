@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>登录</title>
+    <script type="text/javascript" src="../static/js/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/styles.css">
+
+</head>
+<body>
+
+
+<div class="wrapper">
+
+    <div class="container">
+        <h1>Welcome</h1>
+        <div class="text-content"></div>
+        <form action="/login" method="post" class="form">
+            <input type="text" placeholder="name" name="name">
+            <input type="text" placeholder="password" name="password">
+            <button type="submit" id="login-button">确定</button>
+
+        </form>
+    </div>
+
+    <ul class="bg-bubbles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+
+<script>
+    if ({{ error }} == '1'
+    )
+    {
+        alert("输入错误了哦(๑ŐдŐ)");
+    }
+</script>
+<script type="text/javascript">
+    $('#login-button').click(function (event) {
+        $('.wrapper').addClass('form-success');
+    });
+
+    window.addEventListener('resize', function () {
+        if (document.activeElement.tagName === 'INPUT') {
+            document.activeElement.scrollIntoView({behavior: "smooth"})
+        }
+    });
+
+</script>
+
+
+</body>
+</html>
