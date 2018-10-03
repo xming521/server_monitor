@@ -5,6 +5,8 @@ import psutil as p
 def main():
     with open('../process.conf', 'r', encoding='UTF-8') as f:
         read_list = eval(f.read())
+    with open('../process_moreinfo.conf', 'r', encoding='UTF-8') as f:
+        more_list = eval(f.read())
     all_result = []
     id = 1
     for i in read_list:
@@ -14,14 +16,16 @@ def main():
                 'id': id,
                 'name': i,
                 'run': True,
-                'memory': process.memory_info().rss / 1024 / 1024,
-                'net': process.connections(kind="inet")
+                'memory': round(process.memory_info().rss / 1024 / 1024, 2),
+                'net': process.connections(kind="inet"),
+                'more': more_list.get(i)
             }
         except p.NoSuchProcess:
             result_dict = {
                 'id': id,
                 'name': i,
-                'run': False
+                'run': False,
+                'more': more_list.get(i)
             }
         finally:
             id = id + 1

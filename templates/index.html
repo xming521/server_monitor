@@ -13,21 +13,38 @@
     <ul>
         {% for i in dict %}
             {% if i['run'] == True %}
-                <li onclick="">{{ i['name'] }}
+                <li onclick="more({{ i['id'] }})">
+                    {{ i['name'] }}
                     <div run='t' class="c"></div>
                 </li>
+                <div class="info">
+                    {{ i['memory'] }}Mb &nbsp;&nbsp;&nbsp; {{ i['net'] }} port
+                </div>
             {% else %}
-                <li onclick="">{{ i['name'] }}
+                <li onclick="more({{ i['id'] }})">
+                    {{ i['name'] }}
                     <div run='f' class="c"></div>
                 </li>
             {% endif %}
+            <div class="more">{{ i['more'] }}</div>
+
 
         {% endfor %}
     </ul>
 </div>
 
 
-<a href="/logout">退出登录</a><br>
+<script>
+    var more = function (id) {
+        var x = document.getElementsByClassName('more')[id - 1];
+        if (x.style.display == 'block') {
+            x.style.display = 'none'
+        }
+        else {
+            x.style.display = 'block'
+        }
+    }
 
+</script>
 </body>
 </html>
