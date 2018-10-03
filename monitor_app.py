@@ -12,12 +12,13 @@ def main():
     for i in read_list:
         try:
             process = p.Process(read_list[i])
+            list_port = [tuple(i[3])[1] for i in process.connections('tcp')]
             result_dict = {
                 'id': id,
                 'name': i,
                 'run': True,
                 'memory': round(process.memory_info().rss / 1024 / 1024, 2),
-                'net': process.connections(kind="inet"),
+                'net': list_port,
                 'more': more_list.get(i)
             }
         except p.NoSuchProcess:

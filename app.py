@@ -1,16 +1,17 @@
 import logging
+from datetime import timedelta
 
+import monitor as m
+import toolming.monitor
 from flask import Flask, request, flash, render_template, redirect, url_for
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
-
-import monitor
 
 app = Flask(__name__)
 login_manager = LoginManager(app)
 app.secret_key = 'some_secret'
 
 # 解决缓存刷新问题
-# app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=2)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = timedelta(seconds=2)
 
 
 logging.getLogger('werkzeug').setLevel(logging.ERROR)
@@ -43,8 +44,7 @@ def load_user(stu_id):
 @app.route('/')
 @login_required
 def index():
-    result = monitor.main()
-    print(result)
+    result = m.main()
     return render_template('index.html', dict=result)
 
 
@@ -80,4 +80,6 @@ def logout():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    toolming.monitor.main()
+    print('监视世界')
+    app.run(debug=True, host='0.0.0.0', port='5000')
