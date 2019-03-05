@@ -1,10 +1,11 @@
 import logging
 from datetime import timedelta
 
-import monitor as m
-import toolming.monitor
 from flask import Flask, request, flash, render_template, redirect, url_for
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user
+
+import monitor
+import monitor_app as m
 
 app = Flask(__name__)
 login_manager = LoginManager(app)
@@ -80,6 +81,6 @@ def logout():
 
 
 if __name__ == '__main__':
-    toolming.monitor.main()
+    monitor.main()
     print('监视世界')
     app.run(debug=True, host='0.0.0.0', port='5000')
